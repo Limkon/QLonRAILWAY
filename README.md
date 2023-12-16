@@ -156,6 +156,78 @@ libc-dev
 npm
 libc-dev
 gcc
+
+开卡变量填写，加在配置文件最后面
+
+## 开卡系列通用变量 设置一次永久生效
+export RUSH="true"
+export guaopenwait_All="60"
+export guaopencard_All="true"
+export guaopencard_addSku_All="true"
+export guaopencardRun_All="true"
+export guaopencard_draw="true"
+export guaunknownTask_addSku_All="true"
+## 开卡系列抽奖通用变量 设置一次永久生效
+export gua_carnivalcity_draw="true"
+3.定时规则
+*/5 * * * * ?    #每隔 5 秒执行一次
+0 */1 * * * ?    #每隔 1 分钟执行一次
+0 0 2 1 * ? *    #每月 1 日的凌晨 2 点执行一次
+0 15 10 ? *    #MON-FRI 周一到周五每天上午 10：15 执行
+0 15 10 ? 6L    #2002-2006 2002 年至 2006 年的每个月的最后一个星期五上午 10:15 执行
+0 0 23 * * ?    #每天 23 点执行一次
+0 0 1 * * ?    #每天凌晨 1 点执行一次
+0 0 1 1 * ?     #每月 1 日凌晨 1 点执行一次
+0 0 23 L * ?    #每月最后一天 23 点执行一次
+0 0 1 ? * L    #每周星期天凌晨 1 点执行一次
+0 26,29,33 * * * ?    #在 26 分、29 分、33 分执行一次
+0 0 0,13,18,21 * * ?    #每天的 0 点、13 点、18 点、21 点都执行一次
+0 0 10,14,16 * * ?    #每天上午 10 点，下午 2 点，4 点执行一次
+0 0/30 9-17 * * ?    #朝九晚五工作时间内每半小时执行一次
+0 0 12 ? * WED    #每个星期三中午 12 点执行一次
+0 0 12 * * ?    #每天中午 12 点触发
+0 15 10 ? * *    #每天上午 10:15 触发
+0 15 10 * * ?    #每天上午 10:15 触发
+0 15 10 * * ? *    #每天上午 10:15 触发
+0 15 10 * * ?    #2005 2005 年的每天上午 10:15 触发
+0 * 14 * * ?    #每天下午 2 点到 2:59 期间的每 1 分钟触发
+0 0/5 14 * * ?    #每天下午 2 点到 2:55 期间的每 5 分钟触发
+0 0/5 14,18 * * ?    #每天下午 2 点到 2:55 期间和下午 6 点到 6:55 期间的每 5 分钟触发
+0 0-5 14 * * ?    #每天下午 2 点到 2:05 期间的每 1 分钟触发
+0 10,44 14 ? 3 WED    #每年三月的星期三的下午 2:10 和 2:44 触发
+0 15 10 ? * MON-FRI    #周一至周五的上午 10:15 触发
+0 15 10 15 * ?    #每月 15 日上午 10:15 触发
+0 15 10 L * ?    #每月最后一日的上午 10:15 触发
+0 15 10 ? * 6L    #每月的最后一个星期五上午 10:15 触发
+0 15 10 ? * 6L    #2002-2005 2002 年至 2005 年的每月的最后一个星期五上午 10:15 触发
+0 15 10 ? * 6#3    #每月的第三个星期五上午 10:15 触发
+四、常用命令
+1.查看容器名
+docker ps -a
+2.重启青龙容器
+docker restart 你的容器名
+3.更新青龙（或者直接面板更新）
+docker exec -it qinglong ql update
+4.更新青龙并编译
+docker exec -it qinglong ql restart
+5.拉取自定义仓库，已Faker仓库为例
+docker exec -it qinglong ql repo https://ghproxy.com/https://github.com/shufflewzc/faker2.git "jd_|jx_|gua_|jddj_|getJDCookie" "activity|backUp" "^jd[^_]|USER|ZooFaker_Necklace.js|JDJRValidator_Pure|sign_graphics_validate"
+6.拉取单个脚本，以Faker库的资产变更通知为例
+docker exec -it qinglong ql raw https://github.com/shufflewzc/faker2/blob/main/jd_bean_change_new.js
+7.导出互助码
+docker exec -it qinglong ql code
+8.通知测试
+docker exec -it qinglong notify test test
+9.立即执行脚本，以资产变更通知为例
+docker exec -it qinglong task jd_bean_change_new.js now
+10.并行执行脚本
+docker exec -it qinglong task jd_bean_change_new.js conc
+11.查看青龙密码 注意你的容器及文件夹名称
+docker exec -it qinglong cat /ql/config/auth.json
+12.删除7天前的所有日志
+docker exec -it qinglong ql rmlog 7
+13.启动青龙bot 前提你已配置好青龙BOT
+docker exec -it qinglong ql bot
 g++
 libffi-dev
 python3-dev
